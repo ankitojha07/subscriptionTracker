@@ -1,29 +1,26 @@
 import express from "express";
-import userRoute from "./routes/auth.routes.js";
 import client from "./model/db.js";
+import userRoute from "./routes/auth.routes.js";
 
-// import { PORT } from "./config/env.js";
 const PORT = 5500;
 
-const app = express()
-app.use("/api/v1/user", userRoute)
+const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Subscription API is working fine.")
-})
+app.use("/api/v1/user/", userRoute);
 
 async function run() {
     try {
-        await client.connect();
-        await client.db("admin").command({ ping: 1 })
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        await client();
         app.listen(PORT, () => {
-            console.log("Server started at port ", PORT);
-        })
-    }
-    finally {
-        await client.close();
+            console.log("Server started at port", PORT);
+        });
+    } catch (error) {
+        console.log("Database connection failed", error);
     }
 }
 run().catch(console.dir);
 
+app.get("/", (req, res) => {
+    res.send("Subscription API is working fine.");
+});

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { createUser } from "../controller/user.controller.js";
 
 const userRoute = Router();
 
@@ -22,5 +23,7 @@ userRoute.get('/', (req, res) => {
 userRoute.get("/details", (req, res) => {
     res.status(200).send("User details!")
 })
+
+userRoute.post("/register", createUser)
 
 export default userRoute;
