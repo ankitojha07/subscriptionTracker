@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser } from "../controller/user.controller.js";
+import { createUser, getAllUsers } from "../controller/user.controller.js";
 
 const userRoute = Router();
 
@@ -25,5 +25,6 @@ userRoute.get("/details", (req, res) => {
 })
 
 userRoute.post("/register", createUser)
+userRoute.get("/users", getAllUsers)
 
 export default userRoute;
