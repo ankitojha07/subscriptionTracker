@@ -48,5 +48,47 @@ export const signup = async (req, res, next) => {
   }
 };
 
-export const signin = async (req, res, next) => {};
+export const signin = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      const error = new Error("Please provide email and password!");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      const error = new Error("User not found!");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      const error = new Error("Invalid password!");
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "User signed in successfully.",
+      data: { token, user },
+    });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    next(error);
+  }
+};
 export const signout = async (req, res, next) => {};
