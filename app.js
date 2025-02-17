@@ -1,8 +1,9 @@
 import express from "express";
 import client from "./database/db.js";
-import userRoute from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middleware/error.middleware.js";
+import authRoute from "./routes/auth.routes.js";
+import userRoute from "./routes/users.routes.js";
 
 const PORT = 5500;
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(errorMiddleware);
 
+app.use("/api/v1/auth/", authRoute);
 app.use("/api/v1/user/", userRoute);
 
 async function run() {

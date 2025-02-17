@@ -1,21 +1,19 @@
 import { Router } from "express";
 import { signin, signout, signup } from "../controller/auth.controller.js";
-import { getAllUsers } from "../controller/user.controller.js";
 
-const userRoute = Router();
+const authRoute = Router();
 
-userRoute.get("/", (req, res) => {
+authRoute.get("/", (req, res) => {
   res.status(200).send(`User API is working now!`);
 });
 
-userRoute.get("/details", (req, res) => {
+authRoute.get("/details", (req, res) => {
   res.status(200).send("User details!");
 });
 
 // path : /api/v1/user/sign-up
-userRoute.post("/sign-up", signup);
-userRoute.post("/sign-in", signin);
-userRoute.post("/sign-out", signout);
-userRoute.get("/users", getAllUsers);
+authRoute.post("/sign-up", signup);
+authRoute.post("/sign-in", signin);
+authRoute.post("/sign-out", signout);
 
-export default userRoute;
+export default authRoute;

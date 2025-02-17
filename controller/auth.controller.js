@@ -91,4 +91,15 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
-export const signout = async (req, res, next) => {};
+export const signout = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    res.status(200).json({ message: "yet to develop!" });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    next(error);
+  }
+};
