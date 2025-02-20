@@ -12,13 +12,13 @@ export const authorize = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
 
-    if (!token) return res.status(401).json({ message: "Unauthorized 1" });
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
 
     const decode = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(decode.userId);
 
     if (!user)
-      return res.status(401).json({ message: "Unauthorized 2", data: decode });
+      return res.status(401).json({ message: "Unauthorized", data: decode });
 
     req.user = user;
     next();
