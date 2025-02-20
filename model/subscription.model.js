@@ -11,7 +11,10 @@ const subscriptionSchema = new mongoose.Schema(
     status: { type: String, required: true },
     startDate: { type: Date, required: true },
     renewalDate: { type: Date, required: false },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

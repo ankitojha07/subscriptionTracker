@@ -15,7 +15,10 @@ export const authorize = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: "Unauthorized" });
 
     const decode = jwt.verify(token, JWT_SECRET);
+    // console.log("Decoded JWT", decode);
+
     const user = await User.findById(decode.userId);
+    // console.log("Found User:", user);
 
     if (!user)
       return res.status(401).json({ message: "Unauthorized", data: decode });
