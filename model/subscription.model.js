@@ -10,7 +10,7 @@ const subscriptionSchema = new mongoose.Schema(
     paymentMethod: { type: String, required: true },
     status: { type: String, required: true },
     startDate: { type: Date, required: true },
-    renewalDate: { type: Date, required: true },
+    renewalDate: { type: Date, required: false },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }

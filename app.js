@@ -5,6 +5,7 @@ import errorMiddleware from "./middleware/error.middleware.js";
 import authRoute from "./routes/auth.routes.js";
 import userRoute from "./routes/users.routes.js";
 import arcjetMiddleware from "./middleware/arcjet.middleware.js";
+import subscriptionRouter from "./routes/subscription.routes.js";
 
 const PORT = 5500;
 
@@ -18,6 +19,7 @@ app.use(errorMiddleware);
 
 app.use("/api/v1/auth/", authRoute);
 app.use("/api/v1/user/", userRoute);
+app.use("/api/v1/subscription/", subscriptionRouter);
 
 async function run() {
   try {
