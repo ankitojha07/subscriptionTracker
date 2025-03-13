@@ -5,7 +5,7 @@ import {
   QSTASH_TOKEN,
   //   QSTASH_NEXT_SIGNING_KEY,
   //   QSTASH_CURRENT_SIGNING_KEY,
-} from "./env";
+} from "./env.js";
 
 export const workflowClient = new WorkflowClient({
   baseUrl: QSTASH_URL,
